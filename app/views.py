@@ -1,6 +1,6 @@
-from flask import Flask
-# from .src.compute_accuracy import compute_accuracy
-from .models import db, Content
+from flask import Flask, render_template
+from app.models import db, Content
+from app.src.compute_accuracy import model_pipeline
 
 app = Flask(__name__)
 
@@ -8,16 +8,11 @@ app = Flask(__name__)
 def index():
     return "Hello world !"
 
-# @app.route('/compute/accuracy/')
-# def compute():
-#     accuracy = compute_accuracy()
-#     db.session.add(Content(accuracy))
-#     db.session.commit()
-#     return "Inference done and added to database"
-#
-# @app.route('/database/')
-# def query():
-#     return Content.query.all()
+@app.route('/compute/')
+def compute():
+    accuracy = model_pipeline()
+    return render_template('accuracy.html', accuracy=accuracy)
+
 
 if __name__ == "__main__":
     app.run()

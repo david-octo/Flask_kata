@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 
-from .views import app
+from app.views import app
 
 
 # Create database connection object

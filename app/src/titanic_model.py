@@ -8,9 +8,10 @@ class TitanicModel:
     def __init__(self):
         self.woman_survival_probability_: Optional[float] = None
         self.men_survival_probability_: Optional[float] = None
+        #self.age_survival_probability_: Optional[List[float]] = None
 
     def predict(self, X: pd.DataFrame):
-        return X.apply(self.predict_according_to_sex, axis=0)
+        return X.apply(self.predict_according_to_sex, axis=1)
 
     def fit(self, X: pd.DataFrame, y: pd.Series):
         self.woman_survival_probability_ = self.compute_survival_probability_by_sex(X, y, 'female')
@@ -25,10 +26,13 @@ class TitanicModel:
         return count_survived / subset_passengers.shape[0]
 
     def predict_according_to_sex(self, row):
-        print(row)
-        if row[0] == 'male':
+        #print(row[0])
+        if row['Sex'] == 'male':
             return random.choices([0, 1], k=1,
-                                  weights=[1 - self.men_survival_probability_, self.men_survival_probability_])
+                                  weights=[1 - self.men_survival_probability_, self.men_survival_probability_])[0]
         else:
             return random.choices([0, 1], k=1,
-                                  weights=[1 - self.woman_survival_probability_, self.woman_survival_probability_])
+                                  weights=[1 - self.woman_survival_probability_, self.woman_survival_probability_])[0]
+
+    def predict_according_to_age(self, row):
+        pass
