@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from app.models import db, Content
+#from app.models import db, Content
 from app.src.compute_accuracy import model_pipeline
 
 app = Flask(__name__)
