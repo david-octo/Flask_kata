@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -10,10 +10,20 @@ def index():
 def accueil(value):
     return value
 
-@app.route('/api_get/', methods=['GET'])
+@app.route('/api/', methods=['GET', 'PUT'])
 def api_get():
-    return "my get"
+    if request.method == 'GET':
+        return "my get"
+    elif request.method == 'PUT':
+        return "my put"
 
+@app.route('/api/', methods=['POST'])
+def api_post():
+    return "my post"
+
+@app.route('/api_json/', methods=['GET'])
+def api_json():
+    return {'nom': 'dupont', 'prenom': 'xavier'}
 
 
 
