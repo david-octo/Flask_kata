@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
 
+from app.src.get_accuracy import return_accuracy
+
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -25,7 +28,9 @@ def api_post():
 def api_json():
     return {'nom': 'dupont', 'prenom': 'xavier'}
 
-
+@app.route('/accuracy/', methods=['GET'])
+def api_accuracy():
+    return str(return_accuracy())
 
 if __name__ == "__main__":
     app.run()
